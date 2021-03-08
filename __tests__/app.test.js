@@ -37,7 +37,7 @@ describe('app routes', () => {
       await fakeRequest(app)
         .get('/apod')
         .expect('Content-Type', /json/)
-        .expect(200);
+        .expect(500);
 
      
     });
