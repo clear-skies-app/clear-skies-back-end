@@ -35,9 +35,9 @@ describe('app routes', () => {
     test('returns a 200 response for apod call', async() => {
 
       await fakeRequest(app)
-        .get('/apod');
-      // .expect('Content-Type', /json/)
-      // .expect(200);
+        .get('/apod')
+        .expect('Content-Type', /json/)
+        .expect(200);
 
      
     });
