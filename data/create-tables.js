@@ -15,13 +15,16 @@ async function run() {
                 CREATE TABLE users (
                     id SERIAL PRIMARY KEY,
                     email VARCHAR(256) NOT NULL,
+                    name VARCHAR (256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
                 );           
-                CREATE TABLE animals (
+                CREATE TABLE observations (
                     id SERIAL PRIMARY KEY NOT NULL,
                     name VARCHAR(512) NOT NULL,
-                    cool_factor INTEGER NOT NULL,
-                    owner_id INTEGER NOT NULL REFERENCES users(id)
+                    image VARCHAR(512) NOT NULL,
+                    notes VARCHAR(1200) NOT NULL,
+                    observed BOOLEAN NOT NULL,
+                    user_id INTEGER NOT NULL REFERENCES users(id)
             );
         `);
 
