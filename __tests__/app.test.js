@@ -18,7 +18,8 @@ describe('app routes', () => {
       const signInData = await fakeRequest(app)
         .post('/auth/signup')
         .send({
-          email: 'jon@user.com',
+          email: 'john@arbuckle.com',
+          name: 'john',
           password: '1234'
         });
       
@@ -31,35 +32,14 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    test('returns animals', async() => {
+    test('returns a 200 response for apod call', async() => {
 
-      const expectation = [
-        {
-          'id': 1,
-          'name': 'bessie',
-          'coolfactor': 3,
-          'owner_id': 1
-        },
-        {
-          'id': 2,
-          'name': 'jumpy',
-          'coolfactor': 4,
-          'owner_id': 1
-        },
-        {
-          'id': 3,
-          'name': 'spot',
-          'coolfactor': 10,
-          'owner_id': 1
-        }
-      ];
-
-      const data = await fakeRequest(app)
-        .get('/animals')
+      await fakeRequest(app)
+        .get('/apod')
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(data.body).toEqual(expectation);
+     
     });
   });
 });
