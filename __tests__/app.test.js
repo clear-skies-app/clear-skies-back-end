@@ -18,7 +18,7 @@ describe('app routes', () => {
       const signInData = await fakeRequest(app)
         .post('/auth/signup')
         .send({
-          email: 'john@arbuckle.com',
+          email: 'j@arbuckle.com',
           name: 'john',
           password: '1234'
         });
@@ -39,6 +39,23 @@ describe('app routes', () => {
         .expect('Content-Type', /json/);
 
      
+    });
+
+    test('returns a munged location object with name, lat and lon from given city', async() => {
+
+      const expectation = {
+        'name': 'Portland, Multnomah, Oregon, USA',
+        'lat': '45.5202471',
+        'lon': '-122.6741949'
+      };
+
+      const data = await fakeRequest(app)
+        .get('/lat-lon?city=portland')
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+
     });
   });
 });
