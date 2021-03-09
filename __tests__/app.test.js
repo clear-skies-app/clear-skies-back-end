@@ -44,7 +44,8 @@ describe('app routes', () => {
 			};
 
 			const data = await fakeRequest(app)
-				.get('/lat-lon?city=portland')
+				.get('/api/lat-lon?city=portland')
+				.set('Authorization', token)
 				.expect('Content-Type', /json/)
 				.expect(200);
 
@@ -136,6 +137,29 @@ describe('app routes', () => {
 				.expect(200);
 
 			expect(data.body).toEqual([]);
+		});
+
+		test('returns a munged lookup detail of the supplied celestial object', async () => {
+			const expectation = {
+				name: 'mirfak',
+				referenceOrg: 'Simbad',
+				referenceLink:
+					'http://simbad.u-strasbg.fr/simbad/sim-id?Ident=mirfak',
+				ra: '03:24:19.370',
+				dec: '+49:51:40.250',
+				galacticCords: '-5.86245, 146.56876',
+				image:
+					'http://server7.sky-map.org/imgcut?survey=DSS2&w=256&h=256&ra=3.40538055333333&de=49.8611806&angle=1.25&output=PNG',
+				category: 'Variable Star',
+			};
+
+			const data = await fakeRequest(app)
+				.get('/api/lookup?objName=mirfak')
+				.set('Authorization', token)
+				.expect('Content-Type', /json/)
+				.expect(200);
+
+			expect(data.body).toEqual(expectation);
 		});
 	});
 });
