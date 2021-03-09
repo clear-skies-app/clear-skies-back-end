@@ -20,5 +20,8 @@ jobs:
     - run: npm ci
     - run: npm test
       env:
+        NASA_API_KEY: ${{secrets.NASA_API_KEY}}
+        LOCATION_IQ: ${{secrets.LOCATION_IQ}}
+        ASTONOMY_API_KEY_HASH: ${{secrets.ASTONOMY_API_KEY_HASH}}
         CI: true
         DATABASE_URL: postgres://postgres:postgres@postgres:5432/postgres
