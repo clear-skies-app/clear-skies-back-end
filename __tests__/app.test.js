@@ -57,5 +57,52 @@ describe('app routes', () => {
       expect(data.body).toEqual(expectation);
 
     });
+    test('create an observation', async() => {
+
+      const expectation = 
+        {
+          'name': 'mars',
+          'image': 'http://placekitten.com/200/200',
+          'notes': 'a beautiful planet',
+          'observed': true,
+        };
+          
+      const dbExpectation = {
+        ...expectation,
+        'user_id': 2,
+        'id': 4,
+      };
+
+      const data = await fakeRequest(app)
+        .post('/api/observations')
+        .set('Authorization', token)
+        .send(expectation)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(dbExpectation);
+
+    });
+    test('get a users observations', async() => {
+
+      const expectation = 
+        [{
+          'name': 'mars',
+          'image': 'http://placekitten.com/200/200',
+          'notes': 'a beautiful planet',
+          'observed': true,
+          'user_id': 2,
+          'id': 4,
+        }];
+
+      const data = await fakeRequest(app)
+        .get('/api/observations')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+
+    });
   });
 });
