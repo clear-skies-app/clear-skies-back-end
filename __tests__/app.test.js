@@ -114,7 +114,7 @@ describe('app routes', () => {
 			];
 
 			const data = await fakeRequest(app)
-				.put('/api/observations/4')
+				.put('/api/observations/mars')
 				.send(updated)
 				.set('Authorization', token)
 				.expect('Content-Type', /json/)
@@ -125,7 +125,7 @@ describe('app routes', () => {
 
 		test('delete a users observations', async () => {
 			await fakeRequest(app)
-				.delete('/api/observations/4')
+				.delete('/api/observations/mars')
 				.set('Authorization', token)
 				.expect('Content-Type', /json/)
 				.expect(200);
